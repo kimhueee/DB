@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[5]:
+# In[14]:
 
 
 import streamlit as st
@@ -10,12 +10,12 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-# In[12]:
+# In[15]:
 
 
 SPREADSHEET_ID = "1qsGHOEEQRlFAitOsQ3i-P9E5_sLpyi1nERMyySi5l7U"
 SHEET_NAME = "Data"
-CREDENTIALS_FILE = "famous-analyzer-458803-n6-41b73c1774f6.json"
+CREDENTIALS_FILE = "famous-analyzer-458803-n6-b91983525854.json"
 def load_data():
     scope = [
         "https://spreadsheets.google.com/feeds",
@@ -29,7 +29,7 @@ def load_data():
     return df
 
 
-# In[13]:
+# In[16]:
 
 
 st.title("📊 Dashboard từ Google Sheet")
