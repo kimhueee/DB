@@ -16,12 +16,14 @@ from oauth2client.service_account import ServiceAccountCredentials
 SPREADSHEET_ID = "1qsGHOEEQRlFAitOsQ3i-P9E5_sLpyi1nERMyySi5l7U"
 SHEET_NAME = "Data"
 CREDENTIALS_FILE = "famous-analyzer-458803-n6-b91983525854.json"
+
 def load_data():
     scope = [
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive"
     ]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, scope)
+    creds_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
     sheet = client.open_by_key(SPREADSHEET_ID).worksheet(SHEET_NAME)
     data = sheet.get_all_records()
