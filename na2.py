@@ -8,7 +8,7 @@ import plotly.graph_objects as go
         # FETCHING DATA FROM GOOGLE SHEETS: ===================================
 @st.cache_data(ttl=3)
 def fetch_data(sheet):
-    sheet_id = "1S67a7BLqIFwyLZMR734Xh7iMHiWURUzvXfS4KlkQEVk"
+    sheet_id = "1Sd1HUFATS2FihSU3fDZTWp8SVGM14D3iTi2xBckaMr8"
     sheets = sheet
     timestamp = int(time.time())  # Force Google Sheets refresh
     sheet_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheets}&t={timestamp}"    
