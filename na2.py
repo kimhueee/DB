@@ -1,5 +1,5 @@
 import pandas as pd
-import streamlit as st
+#import streamlit as st
 import time
 import plotly.express as px
 import plotly.graph_objects as go
@@ -191,11 +191,11 @@ mancol = ['SKU', 'PIC', 'Idea Code', 'Product Name', 'Product Net Weight - Drawi
           'Selling Type', 'Brand', 'REACH Result', 'Prop 65 Result', 'Valuation class']
 
 mandf = datasku.set_index('SKU', drop=False)[mancol].merge(picdept[['PIC', 'dept']], on='PIC', how='left')
-mask = (mandf[['PIC', 'Idea Code', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-down',
+mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-down',
            'Techpack (Technical Pakage)', 'Selling Type', 'Brand', 'REACH Result',
            'Prop 65 Result', 'Valuation class']].isna().any(axis=1) |
     ((mandf['Knock-down'] == 'Yes') & mandf['Assembly instruction'].isna()) |
-    ((mandf['Selling Type'] != 'Combo') & mandf[['Product Net Weight - Drawing (kg)',
+    ((mandf['Selling Type'] != 'Combo') & mandf[['Idea code','Product Net Weight - Drawing (kg)',
                                                  'No# of IB - Drawing', 'IB Length - Drawing (cm)',
                                                  'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
                                                  'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
