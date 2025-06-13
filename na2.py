@@ -195,7 +195,7 @@ mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-
            'Techpack (Technical Pakage)', 'Selling Type', 'Brand', 'REACH Result',
            'Prop 65 Result', 'Valuation class']].isna().any(axis=1) |
     ((mandf['Knock-down'] == 'Yes') & mandf['Assembly instruction'].isna()) |
-    ((mandf['Selling Type'] != 'Combo') & mandf[['Idea code','Product Net Weight - Drawing (kg)',
+    ((mandf['Selling Type'] != 'Combo') & mandf[['Idea Code','Product Net Weight - Drawing (kg)',
                                                  'No# of IB - Drawing', 'IB Length - Drawing (cm)',
                                                  'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
                                                  'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
