@@ -198,11 +198,8 @@ mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-
     ((mandf['Selling Type'] != 'Combo') & mandf[['Idea Code','Product Net Weight - Drawing (kg)',
                                                  'No# of IB - Drawing', 'IB Length - Drawing (cm)',
                                                  'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
-                                                 'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)) |
-    ((mandf['No# of MB - Drawing'] > 0) & (mandf[['Product Net Weight - Drawing (kg)',
-                                      'No# of IB - Drawing', 'IB Length - Drawing (cm)',
-                                      'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
-                                      'IB Gross Weight - Drawing (kg)']]).isna().any(axis=1)))
+                                                 'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)) | ((mandf['No# of MB - Drawing'] > 0) & (mandf[['Product Net Weight - Drawing (kg)', 'No# of IB - Drawing', 'IB Length - Drawing (cm)','IB Width - Drawing (cm)', 'IB Height - Drawing (cm)','IB Gross Weight - Drawing (kg)']]).isna().any(axis=1)))
+
     # PRODUCT DATA BY VENDOR ======================================================================================
 mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ', 'FOB Price',\
            'Port FOB', 'Production leadtime 1st Order', 'Production leadtime', \
