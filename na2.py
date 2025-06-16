@@ -1,5 +1,5 @@
 import pandas as pd
-import streamlit as st
+#import streamlit as st
 import time
 import plotly.express as px
 import plotly.graph_objects as go
@@ -198,7 +198,11 @@ mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-
     ((mandf['Selling Type'] != 'Combo') & mandf[['Idea Code','Product Net Weight - Drawing (kg)',
                                                  'No# of IB - Drawing', 'IB Length - Drawing (cm)',
                                                  'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
-                                                 'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
+                                                 'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)) |
+    ((mandf['No# of MB'] > 0) & (mandf[['Product Net Weight - Drawing (kg)',
+                                      'No# of IB - Drawing', 'IB Length - Drawing (cm)',
+                                      'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
+                                      'IB Gross Weight - Drawing (kg)']]).isna().any(axis=1)))
     # PRODUCT DATA BY VENDOR ======================================================================================
 mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ', 'FOB Price',\
            'Port FOB', 'Production leadtime 1st Order', 'Production leadtime', \
