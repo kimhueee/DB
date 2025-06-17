@@ -218,7 +218,6 @@ maskven = (mandfven[['PIC', 'Product Name', 'MOQ', 'Production leadtime 1st Orde
         ((mandfven['No# of MB - Production'] > 0) & mandfven[['MB Length- Production (cm)', 'MB Width - Production (cm)',\
            'MB Height - Production (cm)', 'MB Net Weight - Production (kg)', 'MB Gross Weight - Production (kg)']].isna().any(axis=1)))
 
-
 mandfvenfilterfield = mandfven.copy()
 mandfvenfilterfield['dept'] = mandfvenfilterfield['dept'].astype(str) + 'ven'
 
@@ -316,8 +315,8 @@ with proven_tab: # Product Data by Vendor =============================
                 piebydept('SSO', dept_dfven)
             with col2:
                 barbydept('SSO', out_dfven)
-            filterfield('SSOven', mandfvenfilterfield, mandfvenfilterfield.isna().any(axis=1), 'SKU_SupCode')
-            detailbysku('SSO', mandfven[mandfven.isna().any(axis=1)], 'SKU_SupCode')        
+            filterfield('SSOven', mandfven, maskven, 'SKU_SupCode')
+            detailbysku('SSO', mandfven[maskven], 'SKU_SupCode')
         with sub_tab2: #SFO
             col1, col2 = st.columns(2)
             with col1:
