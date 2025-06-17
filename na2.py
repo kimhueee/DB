@@ -205,13 +205,13 @@ mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-
           'MB Net Weight - Drawing (kg)','MB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
 
     # PRODUCT DATA BY VENDOR ======================================================================================
-mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ', 'FOB Price','FCA Price'\
-           'Port FOB', 'Production leadtime 1st Order', 'Production leadtime', \
-           'Product Net Weight - Production (kg)', 'No# of IB - Production', 'IB Length - Production (cm)', 'IB Width - Production (cm)', 'IB Height - Production (cm)',\
-           'IB Net Weight - Production (kg)', 'IB Gross Weight - Production (kg)', 'No# of MB - Production', 'MB Length- Production (cm)', 'MB Width - Production (cm)',\
-           'MB Height - Production (cm)', 'MB Net Weight - Production (kg)', 'MB Gross Weight - Production (kg)', 'SOR Result', 'Purchasing status', 'Duty (%)', 'HTS Code']
+# mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ', 'FOB Price','FCA Price'\
+#            'Port FOB', 'Production leadtime 1st Order', 'Production leadtime', \
+#            'Product Net Weight - Production (kg)', 'No# of IB - Production', 'IB Length - Production (cm)', 'IB Width - Production (cm)', 'IB Height - Production (cm)',\
+#            'IB Net Weight - Production (kg)', 'IB Gross Weight - Production (kg)', 'No# of MB - Production', 'MB Length- Production (cm)', 'MB Width - Production (cm)',\
+#            'MB Height - Production (cm)', 'MB Net Weight - Production (kg)', 'MB Gross Weight - Production (kg)', 'SOR Result', 'Purchasing status', 'Duty (%)', 'HTS Code']
 
-mandfven = dataskusup.set_index('SKU_SupCode', drop=False)[mancolven].merge(picdept[['PIC','dept']], on='PIC', how='left')
+mandfven = dataskusup.set_index('SKU_SupCode', drop=False).merge(picdept[['PIC','dept']], on='PIC', how='left')
 maskven = (mandfven[['PIC', 'Product Name', 'MOQ', 'Production leadtime 1st Order', 'Production leadtime',
            'SOR Result', 'Purchasing status','Duty (%)','HTS Code','Port FOB']].isna().any(axis=1) |
         ((mandfven['FOB Price'].isna()) & mandfven['FCA Price'].isna()) |
