@@ -201,7 +201,7 @@ mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-
                                                  'No# of IB - Drawing', 'IB Length - Drawing (cm)',
                                                  'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
                                                  'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)) |
-    ((mandf['No# of MB - Drawing'] > 0) & mandf[['MB Length - Drawing (cm)','MB Width - Drawing (cm)','MB Height - Drawing (cm)',
+    ((mandf['No# of MB - Drawing'] != 0) & mandf[['MB Length - Drawing (cm)','MB Width - Drawing (cm)','MB Height - Drawing (cm)',
           'MB Net Weight - Drawing (kg)','MB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
 
     # PRODUCT DATA BY VENDOR ======================================================================================
@@ -306,7 +306,7 @@ with proven_tab: # Product Data by Vendor =============================
         with subcol3:                
             piebytab(mandfven, 'Total SKU by Team')            
         with subcol4:                
-            piebytab(mandfven[mandfven.isna().any(axis=1)], 'Total Missing SKU by Team')    
+            piebytab(mandfven[maskven], 'Total Missing SKU by Team')
         barbytab(missbyteamven)                
     with col4:            
         sub_tab1, sub_tab2 = st.tabs(["SSO", "SFO"])    
