@@ -214,7 +214,9 @@ mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ',
 mandfven = dataskusup.set_index('SKU_SupCode', drop=False)[mancolven].merge(picdept[['PIC','dept']], on='PIC', how='left')
 maskven = (mandfven[['PIC', 'Product Name', 'MOQ', 'Production leadtime 1st Order', 'Production leadtime',
            'SOR Result', 'Purchasing status','Duty (%)','HTS Code','Port FOB']].isna().any(axis=1) |
-    ((mandfven['FOB Price'].isna()) & mandfven['FCA Price'].isna()))
+        ((mandfven['FOB Price'].isna()) & mandfven['FCA Price'].isna()) |
+        ((mandfven['No# of MB - Production'] > 0) & mandfven[['MB Length- Production (cm)', 'MB Width - Production (cm)',\
+           'MB Height - Production (cm)', 'MB Net Weight - Production (kg)', 'MB Gross Weight - Production (kg)']].isna().any(axis=1)))
 
 
 mandfvenfilterfield = mandfven.copy()
@@ -250,7 +252,7 @@ dept_df.loc['Complete by Dept'] = dept_df.loc['Total by Dept'] - dept_df.loc['Af
 
     # PRODUCT DATA BY VENDOR ======================================================================================
 # Stacked Bar - Missing value by team:
-missbyteamven = mandfven[mandfven.isna().any(axis=1)]
+missbyteamven = mandfven[maskven]
 missbyteamven = missbyteamven.groupby("dept")[list(missbyteamven.columns)].apply(lambda x: x.isna().sum()).T
 
 # Pie Chart - Complete rate by department:
