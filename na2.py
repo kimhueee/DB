@@ -186,8 +186,10 @@ dataskusup = dataskusup[dataskusup['SKU'].notna() & (dataskusup['SKU_SupCode'] !
     # PRODUCT MASTER ==============================================================================================
 mancol = ['SKU', 'PIC', 'Idea Code', 'Product Name', 'Product Net Weight - Drawing (kg)',
           'No# of IB - Drawing', 'IB Length - Drawing (cm)', 'IB Width - Drawing (cm)',
-          'IB Height - Drawing (cm)', 'IB Gross Weight - Drawing (kg)', 'Base Unit of Measure', 
-          'Company', 'Knock-down', 'Assembly instruction', 'Techpack (Technical Pakage)', 
+          'IB Height - Drawing (cm)', 'IB Gross Weight - Drawing (kg)',
+          'No# of MB - Drawing','MB Length - Drawing (cm)','MB Width - Drawing (cm)','MB Height - Drawing (cm)',
+          'MB Net Weight - Drawing (kg)','MB Gross Weight - Drawing (kg)',
+          'Base Unit of Measure', 'Company', 'Knock-down', 'Assembly instruction', 'Techpack (Technical Pakage)',
           'Selling Type', 'Brand', 'REACH Result', 'Prop 65 Result', 'Valuation class']
 
 mandf = datasku.set_index('SKU', drop=False)[mancol].merge(picdept[['PIC', 'dept']], on='PIC', how='left')
@@ -198,7 +200,9 @@ mask = (mandf[['PIC', 'Product Name', 'Base Unit of Measure', 'Company', 'Knock-
     ((mandf['Selling Type'] != 'Combo') & mandf[['Idea Code','Product Net Weight - Drawing (kg)',
                                                  'No# of IB - Drawing', 'IB Length - Drawing (cm)',
                                                  'IB Width - Drawing (cm)', 'IB Height - Drawing (cm)',
-                                                 'IB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
+                                                 'IB Gross Weight - Drawing (kg)']].isna().any(axis=1))
+    ((mandf['No# of MB - Drawing'] > 0) & mandf[['MB Length - Drawing (cm)','MB Width - Drawing (cm)','MB Height - Drawing (cm)',
+          'MB Net Weight - Drawing (kg)','MB Gross Weight - Drawing (kg)']].isna().any(axis=1)))
 
     # PRODUCT DATA BY VENDOR ======================================================================================
 mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ', 'FOB Price',\
@@ -208,6 +212,10 @@ mancolven = ['PIC', 'SKU','Supplier Code', 'Product Name', 'SKU_SupCode', 'MOQ',
            'MB Height - Production (cm)', 'MB Net Weight - Production (kg)', 'MB Gross Weight - Production (kg)', 'SOR Result', 'Purchasing status', 'Duty (%)', 'HTS Code']
 
 mandfven = dataskusup.set_index('SKU_SupCode', drop=False)[mancolven].merge(picdept[['PIC','dept']], on='PIC', how='left')
+maskven = (mandfven[['PIC', 'Product Name', 'MOQ', 'Production leadtime 1st Order', 'Production leadtime',
+           'SOR Result', 'Purchasing status','Duty (%)','HTS Code','Port FOB']].isna().any(axis=1) |
+    ((mandfven['FOB Price'].isna()) & mandfven['FCA Price'].isna()))
+
 
 mandfvenfilterfield = mandfven.copy()
 mandfvenfilterfield['dept'] = mandfvenfilterfield['dept'].astype(str) + 'ven'
