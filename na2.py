@@ -228,7 +228,7 @@ out_df['NaN_Count'] = out_df.isna().sum(axis=1)
 out_df = out_df.sort_values(by='NaN_Count', ascending=True).drop(columns='NaN_Count')
 out_df.set_index('SKU', inplace=True)
 
-out_dfven = mandfven[mandfven.isna().any(axis=1)]
+out_dfven = mandfven[maskven]
 out_dfven['NaN_Count'] = out_dfven.isna().sum(axis=1)
 out_dfven = out_dfven.sort_values(by='NaN_Count', ascending=True).drop(columns='NaN_Count')
 out_dfven.set_index('SKU_SupCode', inplace=True)
