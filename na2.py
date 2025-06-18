@@ -323,8 +323,8 @@ with proven_tab: # Product Data by Vendor =============================
                 piebydept('SFO', dept_dfven)
             with col2:
                 barbydept('SFO', out_dfven)
-            filterfield('SFOven', mandfvenfilterfield, mandfvenfilterfield.isna().any(axis=1), 'SKU_SupCode')
-            detailbysku('SFO', mandfven[mandfven.isna().any(axis=1)], 'SKU_SupCode')
+            filterfield('SFOven', mandfven, maskven, 'SKU_SupCode')
+            detailbysku('SFO', mandfven[maskven], 'SKU_SupCode')
  
     # # Auto-refresh every setting seconds =======================================
     # auto_refresh(10)
