@@ -50,6 +50,10 @@ def piebytab(piebytabdf, title):
 def barbytab(barbytabdf):
     
     barbytabdf = barbytabdf.reset_index()
+    for col in ['SSO', 'SFO']:
+        if col not in barbytabdf.columns:
+            barbytabdf[col] = 0
+
     barbytabdf['Total'] = barbytabdf['SSO'] + barbytabdf['SFO']
     barbytabdf = barbytabdf[barbytabdf['Total'] > 0] # Filter missbyteam rows where both 'SSO' and 'SFO' are zero
     barbytabdf = barbytabdf.sort_values(by='Total', ascending=True) # Sort by 'Total' in descending order
