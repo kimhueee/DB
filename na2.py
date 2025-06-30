@@ -113,10 +113,18 @@ def piebydept(dept, piebydeptdf):
 
 # Function to draw bar chart of each department (Number of Missing of Each field):
 def barbydept(dept, barbydeptdf):
-    missbyfield = barbydeptdf[barbydeptdf['dept'] == dept].isna().sum()
-    missbyfield = missbyfield.to_frame(name=dept)
-    missbyfield = missbyfield[missbyfield[dept] > 0].reset_index()
-    missbyfield = missbyfield.sort_values(by=dept, ascending=True)
+    if dept not in barbydeptdf['dept'].unique():
+        # Nếu không có dữ liệu cho dept đó, tạo DataFrame trống với 1 dòng "No Data"
+        missbyfield = pd.DataFrame({
+            'index': ['No Missing Field'],
+            dept: [0]
+        })
+    else:
+        # Tính số lượng NA theo field với điều kiện dept
+        missbyfield = barbydeptdf[barbydeptdf['dept'] == dept].isna().sum()
+        missbyfield = missbyfield.to_frame(name=dept)
+        missbyfield = missbyfield[missbyfield[dept] > 0].reset_index()
+        missbyfield = missbyfield.sort_values(by=dept, ascending=True)
     
     fig = px.bar(missbyfield, y='index', x=dept,
     text_auto=True, height=650, width=500, labels={"index": "", "value": ""})    
